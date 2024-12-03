@@ -71,3 +71,40 @@ class TestSIU:
         boton = self.driver.find_element(By.XPATH, '//*[@id="app"]/div/header/div/h2')
         assert boton.text == "Ubicación de la Reserva", f"Texto encontrado: {boton.text}"
         time.sleep(3)
+
+    def test_botonMapsVolver(self):
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/header/div/nav[2]/a[1]').click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '//*[@id="email"]').send_keys("worker.workerap@miempresa.com")
+        self.driver.find_element(By.XPATH, '//*[@id="password"]').send_keys("Password.1")
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/form/div[4]/button').click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/div/div/div/ul/li/div/div[2]/button').click()
+        self.driver.execute_script("document.body.style.zoom='80%'")
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/div/div/div/ul/li/div[2]/div/a[1]').click()
+        time.sleep(3)
+        boton = self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/button')
+        assert boton.text == "Volver", f"Texto encontrado: {boton.text}"
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/button').click()
+        time.sleep(3)
+
+    def test_botonIr(self):
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/header/div/nav[2]/a[1]').click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '//*[@id="email"]').send_keys("worker.workerap@miempresa.com")
+        self.driver.find_element(By.XPATH, '//*[@id="password"]').send_keys("Password.1")
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/form/div[4]/button').click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/div/div/div/ul/li/div/div[2]/button').click()
+        self.driver.execute_script("document.body.style.zoom='80%'")
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/div/div/div/ul/li/div[2]/div/a[1]').click()
+        time.sleep(3)
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/button').click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/div/div/div/ul/li/div/div[2]/button').click()
+        time.sleep(1)
+        self.driver.execute_script("document.body.style.zoom='80%'")
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/main/div/div/div/div/div/ul/li/div[2]/div/a[2]').click()
+        time.sleep(5)
+        text = self.driver.find_element(By.XPATH, '/html/body/div/div/div/div[2]')
+        assert text.text.strip() == "NOT FOUND", f"Texto encontrado: {text.text.strip()}"
