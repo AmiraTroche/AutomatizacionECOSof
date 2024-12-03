@@ -11,11 +11,11 @@ class TestEscof:
         self.driver.maximize_window()
         self.driver.get("http://localhost/ECSOF/public")
         self.driver.find_element(By.XPATH,"//a[text()=' Inicio De Sesion ']").click()
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@aria-label='Correo electrónico']").send_keys("admin@example.com")
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@aria-label='Contraseña']").send_keys("Password.1")
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.XPATH,"//button[text()=' Iniciar sesión ']").click()
         time.sleep(2)
 
@@ -47,7 +47,7 @@ class TestEscof:
         time.sleep(2)
         self.driver.find_element(By.XPATH,"//button[text()=' Asignar personal ']").click()
         time.sleep(2)
-        self.driver.find_element(By.XPATH,"//input[@value=3]").click()
+        self.driver.find_element(By.XPATH,"//input[@value=5]").click()
         time.sleep(2)
         self.driver.find_element(By.XPATH,"//button[text()=' Asignar Trabajadores ']").click()
         time.sleep(2)
@@ -65,13 +65,13 @@ class TestEscof:
         self.driver.find_element(By.XPATH,"//div[@class='hidden sm:flex space-x-6']//a[text()=' Registro Empleados ']").click()
         time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@id='nombre']").send_keys("Yute")
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@id='apellido']").send_keys("Teran")
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@id='edad']").send_keys("23")
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@id='celular']").send_keys("51969921218")
-        time.sleep(5)
+        time.sleep(2)
         ruta_foto_perfil = r"C:\Users\yutem\OneDrive\Escritorio\fotoperfil.jpg"
         self.driver.find_element(By.XPATH, "//input[@id='foto_perfil']").send_keys(ruta_foto_perfil)
         time.sleep(2)
@@ -89,7 +89,7 @@ class TestEscof:
         time.sleep(2)
         ruta_carta_responsabilidad = r"C:\Users\yutem\OneDrive\Escritorio\carta.jpg"
         self.driver.find_element(By.XPATH, "//input[@id='carta_responsabilidad']").send_keys(ruta_carta_responsabilidad)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.XPATH,"//input[@value=9]").click()
         time.sleep(2)
         self.driver.find_element(By.XPATH,"//button//span[text()='Registrar Trabajador']").click()
@@ -122,7 +122,7 @@ class TestEscof:
         assert esperado == actual, f"FAIL: actual: {actual}, esperado: {esperado}"
     #Fin de Registro de empleados
     #Inicio de Agregar Servicios
-    def test_verify_Agergar_servicios(self):
+    def test_verify_Agregar_servicios(self):
         self.driver.find_element(By.XPATH,"//div[@class='hidden sm:flex space-x-6']//a[text()=' Agregar Servicios ']").click()
         time.sleep(2)
         esperado = "Administración de Servicios"
@@ -158,19 +158,18 @@ class TestEscof:
         self.driver.find_element(By.XPATH,"//span[text()='Actualizar Especialidad']").click()
         time.sleep(2)
         esperado = "pruebamodificado"
-        actual = self.driver.find_element(By.XPATH, "//tr[td[2][text()='modificado'] and td[3][text()='Jardineria']]").text.strip()
+        actual = self.driver.find_element(By.XPATH, "//tr[td[2][text()='pruebamodificado'] and td[3][text()='Jardineria']]").text.strip()
         assert esperado == actual, f"FAIL: actual: {actual}, esperado: {esperado}"
     
     def test_verify_Eliminar_Servicios(self):
         self.driver.find_element(By.XPATH,"//div[@class='hidden sm:flex space-x-6']//a[text()=' Agregar Servicios ']").click()
         time.sleep(2)
-        self.driver.find_element(By.XPATH,"//tr[td[2][text()='modificado'] and td[3][text()='Jardineria']]//button").click()
+        self.driver.find_element(By.XPATH,"//tr[td[2][text()='pruebamodificado'] and td[3][text()='Jardineria']]//button").click()
         time.sleep(2)
         alert = Alert(self.driver)
         alert_text = alert.text
         print(f"Mensaje de alerta: {alert_text}")
         alert.accept()
-        # Verificar que la fila con texto "modificado" ya no está en la tabla
         elementos = self.driver.find_elements(By.XPATH, "//tr[td[text()='pruebamodificado']]")
         assert len(elementos) == 0, "La fila no fue eliminada correctamente."
 
@@ -181,7 +180,7 @@ class TestEscof:
         time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@id='nombre']").send_keys("prueba")
         time.sleep(2)
-        self.driver.find_element(By.XPATH, "//input[@id='descripcion']").send_keys("relleno")
+        self.driver.find_element(By.XPATH, "//textarea[@id='descripcion']").send_keys("relleno")
         time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@id='costo']").send_keys(10)
         time.sleep(2)
@@ -194,7 +193,7 @@ class TestEscof:
         self.driver.find_element(By.XPATH,"//span[text()='Guardar Tarea']").click()
         time.sleep(2)
         esperado = "prueba"
-        actual = self.driver.find_element(By.XPATH, "//tr[td[2][text()='pruebamodificado'] and td[3][text()='relleno']]").text.strip()
+        actual = self.driver.find_element(By.XPATH, "//tr[td[2][text()='prueba'] and td[3][text()='relleno']]").text.strip()
 
         assert esperado == actual, f"FAIL: actual: {actual}, esperado: {esperado}"
     
@@ -203,12 +202,12 @@ class TestEscof:
         time.sleep(2)
         self.driver.find_element(By.XPATH,"//tr[td[2][text()='prueba'] and td[3][text()='relleno']]//a").click()
         time.sleep(2)
-        self.driver.find_element(By.XPATH, "//input[@id='nombre']").send_keys("modificado")
+        self.driver.find_element(By.XPATH, "//input[@id='nombre']").send_keys("modificado2")
         time.sleep(2)
         self.driver.find_element(By.XPATH,"//span[text()='Actualizar Tarea']").click()
         time.sleep(2)
-        esperado = "pruebamodificado"
-        actual = self.driver.find_element(By.XPATH, "//tr[td[2][text()='pruebamodificado'] and td[3][text()='relleno']]").text.strip()
+        esperado = "pruebamodificado2"
+        actual = self.driver.find_element(By.XPATH, "//tr[td[2][text()='pruebamodificado2'] and td[3][text()='relleno']]").text.strip()
         assert esperado == actual, f"FAIL: actual: {actual}, esperado: {esperado}"
     
     def test_verify_Eliminar_Tarea(self):
@@ -220,12 +219,11 @@ class TestEscof:
         alert_text = alert.text
         print(f"Mensaje de alerta: {alert_text}")
         alert.accept()
-        # Verificar que la fila con texto "modificado" ya no está en la tabla
-        elementos = self.driver.find_elements(By.XPATH, "//tr[td[text()='pruebamodificado']]")
+        elementos = self.driver.find_elements(By.XPATH, "//tr[td[text()='pruebamodificado2']]")
         assert len(elementos) == 0, "La fila no fue eliminada correctamente."
     #Fin de Agregar Servicios
     #Inicio de Historial de Servicios Realizados
-    def test_verify_Agergar_servicios(self):
+    def test_verify_Historial_Servicios_Realizados(self):
         self.driver.find_element(By.XPATH,"//div[@class='hidden sm:flex space-x-6']//a[text()=' Historial de Servicios Realizados ']").click()
         time.sleep(2)
         esperado = "Admin Dashboard"
@@ -234,7 +232,7 @@ class TestEscof:
         assert esperado == actual, f"FAIL: actual: {actual}, esperado: {esperado}"
     #Fin de Historial de Servicios Realizados
     #Inicio de Servicios Disponibles
-    def test_verify_Agergar_servicios(self):
+    def test_verify_Servicios_disponibles(self):
         self.driver.find_element(By.XPATH,"//div[@class='hidden sm:flex space-x-6']//a[text()=' Servicios en Proceso ']").click()
         time.sleep(2)
         self.driver.find_element(By.XPATH, "//input[@id='nombre']").send_keys("Limpieza Interna")
